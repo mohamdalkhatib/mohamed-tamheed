@@ -118,6 +118,7 @@ export function DailyTasksDashboard() {
   const [loginBusy, setLoginBusy] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [monthOpen, setMonthOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [newMonth, setNewMonth] = useState("");
 
   const openLogin = useCallback(() => {
@@ -423,8 +424,7 @@ export function DailyTasksDashboard() {
                   <div className="task-body">
                     <span className="task-number">مهمة {taskNumbers.get(task.id)}</span>
                     <h3>{task.title}</h3>
-                    {task.details && <p>{task.details}</p>}
-                    <div className="task-meta">اتسجلت {createdTime(task.createdAt)}</div>
+                    <button className="more-button" type="button" onClick={() => setSelectedTask(task)}>عرض المزيد</button>
                   </div>
                   <div className="task-actions">
                     <button className={`status-button ${task.status}`} type="button" onClick={() => void setTaskStatus(task.id)} aria-label={`${statusCopy[task.status]} — اضغط لتغيير الاعتماد`}>
@@ -445,6 +445,29 @@ export function DailyTasksDashboard() {
           )}
         </div>
       </section>
+
+      {selectedTask && (
+        <div className="modal-backdrop" role="presentation">
+          <section className="modal task-details-modal" role="dialog" aria-modal="true" aria-labelledby="task-details-title">
+            <div className="modal-header task-details-header">
+              <div>
+                <span className="task-modal-number">مهمة {taskNumbers.get(selectedTask.id)}</span>
+                <h2 id="task-details-title">{selectedTask.title}</h2>
+              </div>
+              <button className="close-button" type="button" aria-label="إغلاق" onClick={() => setSelectedTask(null)}>×</button>
+            </div>
+            <div className="task-modal-meta">
+              <span>{selectedTask.taskDate}</span>
+              <span>{statusCopy[selectedTask.status]}</span>
+              <span>اتسجلت {createdTime(selectedTask.createdAt)}</span>
+            </div>
+            <div className="task-full-details">
+              <h3>تفاصيل المهمة</h3>
+              <p>{selectedTask.details || "مفيش تفاصيل إضافية."}</p>
+            </div>
+          </section>
+        </div>
+      )}
 
       {loginOpen && (
         <div className="modal-backdrop" role="presentation">
