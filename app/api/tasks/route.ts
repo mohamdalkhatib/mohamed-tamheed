@@ -1,4 +1,5 @@
 import { ensureDatabase, isDateKey, isMonthKey, monthLabel } from "@/db/core";
+import { isSupervisor } from "@/lib/supervisor-auth";
 
 export async function GET(request: Request) {
   try {
@@ -19,6 +20,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    if (!(await isSupervisor(request))) return Response.json({ error: "يلزم تسجيل الدخول لإضافة المهام" }, { status: 401 });
     const payload = (await request.json()) as { monthKey?: string; title?: string; details?: string; taskDate?: string };
     const monthKey = payload.monthKey?.trim() ?? "";
     const title = payload.title?.trim() ?? "";

@@ -1,11 +1,9 @@
 import { ensureDatabase } from "@/db/core";
-import { isSupervisor } from "@/lib/supervisor-auth";
 
 const statuses = new Set(["pending", "approved", "rejected"]);
 
 export async function PATCH(request: Request) {
   try {
-    if (!(await isSupervisor(request))) return Response.json({ error: "يلزم دخول المشرف" }, { status: 401 });
     const payload = (await request.json()) as { id?: number; status?: string };
     const id = Number(payload.id);
     const status = payload.status ?? "";

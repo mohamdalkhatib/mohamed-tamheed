@@ -77,7 +77,6 @@ export function DailyTasksDashboard() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [monthOpen, setMonthOpen] = useState(false);
   const [newMonth, setNewMonth] = useState("");
-  const [pendingApproval, setPendingApproval] = useState<number | null>(null);
 
   const loadMonths = useCallback(async () => {
     const response = await fetch("/api/months", { cache: "no-store" });
@@ -139,6 +138,11 @@ export function DailyTasksDashboard() {
   async function addTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!title.trim() || !selectedMonth) return;
+    if (!supervisor) {
+      setLoginOpen(true);
+      setMessage("سجّل الدخول أولًا لإضافة المهمة. سيظل ما كتبته موجودًا في النموذج.");
+      return;
+    }
     setSaving(true);
     setMessage("");
     try {
@@ -173,12 +177,6 @@ export function DailyTasksDashboard() {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ id: taskId, status: nextStatus[task.status] }),
     });
-    if (response.status === 401) {
-      setSupervisor(false);
-      setPendingApproval(taskId);
-      setLoginOpen(true);
-      return;
-    }
     const data = (await response.json()) as { task?: Task; error?: string };
     if (!response.ok || !data.task) {
       setMessage(data.error ?? "تعذر تحديث الاعتماد");
@@ -188,11 +186,6 @@ export function DailyTasksDashboard() {
   }
 
   function approvalClick(taskId: number) {
-    if (!supervisor) {
-      setPendingApproval(taskId);
-      setLoginOpen(true);
-      return;
-    }
     void setTaskStatus(taskId);
   }
 
@@ -212,11 +205,7 @@ export function DailyTasksDashboard() {
     }
     setSupervisor(true);
     setLoginOpen(false);
-    if (pendingApproval !== null) {
-      const taskId = pendingApproval;
-      setPendingApproval(null);
-      window.setTimeout(() => void setTaskStatus(taskId), 0);
-    }
+    setMessage("تم تسجيل الدخول. يمكنك الآن إضافة المهمة المكتوبة في النموذج.");
   }
 
   async function logout() {
@@ -261,7 +250,7 @@ export function DailyTasksDashboard() {
               onClick={() => (supervisor ? void logout() : setLoginOpen(true))}
             >
               <span className="supervisor-dot" aria-hidden="true" />
-              {supervisor ? "المشرف متصل · خروج" : "دخول المشرف"}
+              {supervisor ? "مسجّل الدخول · خروج" : "دخول لإضافة المهام"}
             </button>
           </header>
 
@@ -377,7 +366,7 @@ export function DailyTasksDashboard() {
 
         <footer className="footer-note">
           <span>سجل تمهيد اليومي · الحفظ دائم والشهور مؤرشفة</span>
-          <span>{supervisor ? "وضع المشرف مفعل" : "الاعتماد متاح للمشرف بعد تسجيل الدخول"}</span>
+          <span>{supervisor ? "يمكنك إضافة مهام جديدة" : "الاعتماد متاح للجميع · الإضافة تتطلب الدخول"}</span>
         </footer>
       </section>
 
@@ -385,14 +374,14 @@ export function DailyTasksDashboard() {
         <div className="modal-backdrop" role="presentation">
           <section className="modal" role="dialog" aria-modal="true" aria-labelledby="login-title">
             <div className="modal-header">
-              <div><h2 id="login-title">دخول المشرف</h2><p>تغيير حالة الاعتماد متاح لحساب المشرف فقط.</p></div>
-              <button className="close-button" type="button" aria-label="إغلاق" onClick={() => { setLoginOpen(false); setPendingApproval(null); }}>×</button>
+              <div><h2 id="login-title">تسجيل الدخول</h2><p>إضافة المهام الجديدة تتطلب تسجيل الدخول. تغيير حالة الاعتماد متاح للجميع.</p></div>
+              <button className="close-button" type="button" aria-label="إغلاق" onClick={() => setLoginOpen(false)}>×</button>
             </div>
             <form className="modal-form" onSubmit={login}>
               <div className="field"><label htmlFor="username">اسم المستخدم</label><input id="username" name="username" autoComplete="username" required /></div>
               <div className="field"><label htmlFor="password">كلمة المرور</label><input id="password" name="password" type="password" autoComplete="current-password" required /></div>
               <div className="modal-error" data-login-error role="alert" />
-              <button className="teal-button" type="submit">دخول واعتماد</button>
+              <button className="teal-button" type="submit">دخول لإضافة المهام</button>
             </form>
           </section>
         </div>
