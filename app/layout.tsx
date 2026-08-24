@@ -14,14 +14,14 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: base,
     title: "مهام تمهيد اليومية",
-    description: "سجل يومي واضح للمهام والإنجازات والاعتمادات.",
+    description: "صفحة تسجيل المهام اليومية.",
     icons: {
       icon: "https://tamheed.sa/wp-content/uploads/2025/12/logo.svg",
       shortcut: "https://tamheed.sa/wp-content/uploads/2025/12/logo.svg",
     },
     openGraph: {
       title: "مهام تمهيد اليومية",
-      description: "سجّل. أنجز. اعتمد.",
+      description: "صفحة تسجيل المهام اليومية.",
       type: "website",
       locale: "ar_SA",
       images: [new URL("/og.png", base).toString()],
@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: "مهام تمهيد اليومية",
-      description: "سجّل. أنجز. اعتمد.",
+      description: "صفحة تسجيل المهام اليومية.",
       images: [new URL("/og.png", base).toString()],
     },
   };

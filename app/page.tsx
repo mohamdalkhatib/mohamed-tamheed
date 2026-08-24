@@ -3,7 +3,7 @@ import { DailyTasksDashboard } from "./DailyTasksDashboard";
 
 export const metadata: Metadata = {
   title: "مهام تمهيد اليومية",
-  description: "سجل يومي واضح للمهام والإنجازات والاعتمادات.",
+  description: "صفحة تسجيل المهام اليومية.",
 };
 
 export default function Home() {

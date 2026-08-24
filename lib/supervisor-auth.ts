@@ -64,6 +64,8 @@ export async function createSupervisorSession() {
 }
 
 function cookieValue(request: Request) {
+  const authorization = request.headers.get("authorization") ?? "";
+  if (authorization.startsWith("Bearer ")) return authorization.slice(7).trim() || null;
   const cookie = request.headers.get("cookie") ?? "";
   for (const part of cookie.split(";")) {
     const [name, ...rest] = part.trim().split("=");

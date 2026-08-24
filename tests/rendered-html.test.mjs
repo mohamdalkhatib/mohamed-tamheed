@@ -21,9 +21,10 @@ test("server-renders the Arabic Tamheed task tracker", async () => {
   const html = await response.text();
   assert.match(html, /<html[^>]+lang="ar"[^>]+dir="rtl"/i);
   assert.match(html, /<title>مهام تمهيد اليومية<\/title>/);
-  assert.match(html, /كل يوم موثّق/);
-  assert.match(html, /دخول لإضافة المهام/);
-  assert.match(html, /الاعتماد متاح للجميع/);
-  assert.match(html, /إضافة المهمة/);
+  assert.match(html, /أنا عملت إيه النهارده؟/);
+  assert.match(html, /المهام اليومية/);
+  assert.match(html, /عملت إيه؟/);
+  assert.match(html, /\+ إضافة/);
+  assert.doesNotMatch(html, /كل يوم موثّق|قاعدة بسيطة|نظام متابعة الإنجاز اليومي|سجل المهام الداخلية/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|SkeletonPreview/i);
 });

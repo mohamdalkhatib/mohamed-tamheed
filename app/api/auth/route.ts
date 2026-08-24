@@ -6,12 +6,17 @@ import {
   sessionCookie,
   verifySupervisorPassword,
 } from "@/lib/supervisor-auth";
+import { apiJson, apiOptions } from "@/lib/api-response";
+
+export function OPTIONS(request: Request) {
+  return apiOptions(request, "GET, POST, DELETE, OPTIONS");
+}
 
 export async function GET(request: Request) {
   try {
-    return Response.json({ authenticated: await isSupervisor(request) });
+    return apiJson(request, { authenticated: await isSupervisor(request) });
   } catch {
-    return Response.json({ authenticated: false });
+    return apiJson(request, { authenticated: false });
   }
 }
 
@@ -21,16 +26,20 @@ export async function POST(request: Request) {
     const username = payload.username?.trim() ?? "";
     const password = payload.password ?? "";
     if (username !== "Mizo" || !(await verifySupervisorPassword(password))) {
-      return Response.json({ error: "اسم المستخدم أو كلمة المرور غير صحيحة" }, { status: 401 });
+      return apiJson(request, { error: "اسم المستخدم أو كلمة المرور غير صحيحة" }, { status: 401 });
     }
     const session = await createSupervisorSession();
-    return Response.json({ authenticated: true }, { headers: { "set-cookie": sessionCookie(request, session.token, session.expiresAt) } });
+    return apiJson(
+      request,
+      { authenticated: true, token: session.token, expiresAt: session.expiresAt },
+      { headers: { "set-cookie": sessionCookie(request, session.token, session.expiresAt) } },
+    );
   } catch (error) {
-    return Response.json({ error: error instanceof Error ? error.message : "تعذر تسجيل الدخول" }, { status: 500 });
+    return apiJson(request, { error: error instanceof Error ? error.message : "تعذر تسجيل الدخول" }, { status: 500 });
   }
 }
 
 export async function DELETE(request: Request) {
   await destroySupervisorSession(request).catch(() => undefined);
-  return Response.json({ authenticated: false }, { headers: { "set-cookie": expiredSessionCookie(request) } });
+  return apiJson(request, { authenticated: false }, { headers: { "set-cookie": expiredSessionCookie(request) } });
 }
