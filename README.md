@@ -2,7 +2,7 @@
 
 صفحة عربية داخلية لتسجيل إنجازات العمل اليومية ومراجعتها شهريًا. التصميم مستوحى من هوية تمهيد، ويعمل باتجاه RTL على الجوال وسطح المكتب.
 
-**الرابط المباشر:** [mohamdalkhatib.github.io/tamheed-daily-tasks](https://mohamdalkhatib.github.io/tamheed-daily-tasks/)
+**الرابط المباشر:** [mohamdalkhatib.github.io/mohamed-tamheed](https://mohamdalkhatib.github.io/mohamed-tamheed/)
 
 ## المزايا
 
