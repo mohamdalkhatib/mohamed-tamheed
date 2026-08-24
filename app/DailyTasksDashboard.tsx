@@ -172,6 +172,11 @@ export function DailyTasksDashboard() {
     [filter, tasks],
   );
 
+  const taskNumbers = useMemo(
+    () => new Map([...tasks].sort((first, second) => first.id - second.id).map((task, index) => [task.id, index + 1])),
+    [tasks],
+  );
+
   async function addTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!title.trim() || !selectedMonth) return;
@@ -416,6 +421,7 @@ export function DailyTasksDashboard() {
                 <article className="task-card" data-status={task.status} key={task.id}>
                   <div className="date-tile"><div><strong>{date.day}</strong><span>{date.month}</span></div></div>
                   <div className="task-body">
+                    <span className="task-number">مهمة {taskNumbers.get(task.id)}</span>
                     <h3>{task.title}</h3>
                     {task.details && <p>{task.details}</p>}
                     <div className="task-meta">اتسجلت {createdTime(task.createdAt)}</div>

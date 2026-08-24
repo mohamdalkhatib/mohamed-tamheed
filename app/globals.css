@@ -333,6 +333,13 @@ select:focus-visible {
 .date-tile strong { display: block; font-size: 21px; }
 .date-tile span { color: var(--gold-light); font-size: 10px; }
 .task-body { min-width: 0; }
+.task-number {
+  display: inline-block;
+  margin-bottom: 4px;
+  color: #9a7440;
+  font-size: 11px;
+  font-weight: 700;
+}
 .task-body h3 { margin: 0 0 5px; font-size: 16px; line-height: 1.45; }
 .task-body p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; white-space: pre-wrap; }
 .task-meta { margin-top: 7px; color: #989d9b; font-size: 10px; }
