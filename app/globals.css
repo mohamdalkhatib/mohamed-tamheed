@@ -457,6 +457,15 @@ select:focus-visible {
   white-space: pre-wrap;
 }
 
+.task-details-link {
+  color: #1769aa;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.task-details-link:hover { color: #0f4f84; }
+
 @media (max-width: 900px) {
   .composer { grid-template-columns: 1fr 1fr; }
   .composer .field-details { grid-column: 1 / -1; grid-row: 2; }

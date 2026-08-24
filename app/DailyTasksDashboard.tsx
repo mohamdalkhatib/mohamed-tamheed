@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { FormEvent, type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 
 type TaskStatus = "pending" | "approved" | "rejected";
 
@@ -99,6 +99,32 @@ function createdTime(date: string) {
     hour: "numeric",
     minute: "2-digit",
   }).format(new Date(date));
+}
+
+function detailsWithLinks(text: string) {
+  const content: ReactNode[] = [];
+  const urlPattern = /https?:\/\/[^\s<>"']+/g;
+  let lastIndex = 0;
+  let linkIndex = 0;
+
+  for (const match of text.matchAll(urlPattern)) {
+    const start = match.index ?? 0;
+    const matchedUrl = match[0];
+    const trailingPunctuation = matchedUrl.match(/[.,،؛:!?)}\]]+$/)?.[0] ?? "";
+    const url = trailingPunctuation ? matchedUrl.slice(0, -trailingPunctuation.length) : matchedUrl;
+    if (start > lastIndex) content.push(text.slice(lastIndex, start));
+    content.push(
+      <a className="task-details-link" href={url} target="_blank" rel="noopener noreferrer" key={`link-${linkIndex}`}>
+        اضغط هنا
+      </a>,
+    );
+    if (trailingPunctuation) content.push(trailingPunctuation);
+    lastIndex = start + matchedUrl.length;
+    linkIndex += 1;
+  }
+
+  if (lastIndex < text.length) content.push(text.slice(lastIndex));
+  return content;
 }
 
 export function DailyTasksDashboard() {
@@ -463,7 +489,7 @@ export function DailyTasksDashboard() {
             </div>
             <div className="task-full-details">
               <h3>تفاصيل المهمة</h3>
-              <p>{selectedTask.details || "مفيش تفاصيل إضافية."}</p>
+              <p>{selectedTask.details ? detailsWithLinks(selectedTask.details) : "مفيش تفاصيل إضافية."}</p>
             </div>
           </section>
         </div>
