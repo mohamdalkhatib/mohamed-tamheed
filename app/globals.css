@@ -1,45 +1,5 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Thmanyah";
-  src: url("/fonts/thmanyah-light.otf") format("opentype");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Thmanyah";
-  src: url("/fonts/thmanyah-regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Thmanyah";
-  src: url("/fonts/thmanyah-medium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Thmanyah";
-  src: url("/fonts/thmanyah-bold.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Thmanyah";
-  src: url("/fonts/thmanyah-black.otf") format("opentype");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   --ink: #0c1516;
   --ink-soft: #172526;
@@ -71,7 +31,7 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--paper);
-  font-family: "Thmanyah", Tahoma, "Segoe UI", Arial, sans-serif;
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
