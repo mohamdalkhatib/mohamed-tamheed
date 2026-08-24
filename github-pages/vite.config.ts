@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 export default defineConfig({
   root: fileURLToPath(new URL(".", import.meta.url)),
   base: "/mohamed-tamheed/",
+  publicDir: "../public",
   plugins: [react()],
   build: {
     outDir: "../work/github-pages-dist",

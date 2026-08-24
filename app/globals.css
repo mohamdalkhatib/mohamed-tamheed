@@ -1,5 +1,45 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Thmanyah";
+  src: url("/fonts/thmanyah-light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Thmanyah";
+  src: url("/fonts/thmanyah-regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Thmanyah";
+  src: url("/fonts/thmanyah-medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Thmanyah";
+  src: url("/fonts/thmanyah-bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Thmanyah";
+  src: url("/fonts/thmanyah-black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --ink: #0c1516;
   --ink-soft: #172526;
@@ -10,9 +50,9 @@
   --teal: #80a6a7;
   --muted: #6d7775;
   --line: #dfd9cf;
-  --green: #227a58;
+  --green: #168447;
   --green-bg: #e4f3eb;
-  --red: #b84c4c;
+  --red: #cf2929;
   --red-bg: #f8e8e5;
   --gray: #767c7b;
   --gray-bg: #eceeed;
@@ -31,7 +71,7 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--paper);
-  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  font-family: "Thmanyah", Tahoma, "Segoe UI", Arial, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
@@ -120,7 +160,7 @@ select:focus-visible {
 .hero h1 {
   margin: 0;
   font-size: clamp(30px, 5vw, 46px);
-  font-weight: 800;
+  font-weight: 900;
   line-height: 1.25;
   letter-spacing: -0.025em;
 }
@@ -316,8 +356,8 @@ select:focus-visible {
 }
 
 .status-button.pending { color: var(--gray); background: var(--gray-bg); }
-.status-button.approved { color: var(--green); background: var(--green-bg); }
-.status-button.rejected { color: var(--red); background: var(--red-bg); }
+.status-button.approved { color: #fff; background: var(--green); }
+.status-button.rejected { color: #fff; background: var(--red); }
 .status-button:hover { transform: translateY(-1px); filter: saturate(1.08); }
 
 .delete-button {

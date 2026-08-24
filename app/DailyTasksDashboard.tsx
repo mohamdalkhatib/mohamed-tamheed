@@ -346,8 +346,8 @@ export function DailyTasksDashboard() {
           </header>
 
           <div className="hero">
-            <h1>أنا عملت إيه النهارده؟</h1>
-            <p>اكتب اللي خلصته وسيبه للمراجعة.</p>
+            <h1>المهام اليومية</h1>
+            <p>مهام شركة تمهيد</p>
           </div>
         </div>
       </section>

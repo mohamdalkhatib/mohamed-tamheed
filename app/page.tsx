@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { DailyTasksDashboard } from "./DailyTasksDashboard";
 
 export const metadata: Metadata = {
-  title: "مهام تمهيد اليومية",
+  title: "المهام اليومية",
   description: "صفحة تسجيل المهام اليومية.",
 };
 

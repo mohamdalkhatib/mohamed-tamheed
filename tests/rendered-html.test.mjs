@@ -20,8 +20,8 @@ test("server-renders the Arabic Tamheed task tracker", async () => {
 
   const html = await response.text();
   assert.match(html, /<html[^>]+lang="ar"[^>]+dir="rtl"/i);
-  assert.match(html, /<title>مهام تمهيد اليومية<\/title>/);
-  assert.match(html, /أنا عملت إيه النهارده؟/);
+  assert.match(html, /<title>المهام اليومية<\/title>/);
+  assert.match(html, /مهام شركة تمهيد/);
   assert.match(html, /المهام اليومية/);
   assert.match(html, /عملت إيه؟/);
   assert.match(html, /\+ إضافة/);
